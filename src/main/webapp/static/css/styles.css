@@ -1,0 +1,28 @@
+:root {
+    font-size: 16px;
+    font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    gap: 3px;
+}
+
+.register-message, .login-message {
+    font-weight: bold;
+}
+
+.register-success {
+    color: green;
+}
+
+.register-error, .login-error {
+    color: white;
+    padding: 3px 6px;
+    border-radius: 2px;
+    background-color: #ff2323;
+}

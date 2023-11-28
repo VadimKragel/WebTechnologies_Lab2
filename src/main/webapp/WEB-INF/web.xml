@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
+         version="5.0">
+
+    <welcome-file-list>
+        <welcome-file>
+            jsp/home.jsp
+        </welcome-file>
+    </welcome-file-list>
+
+    <filter>
+        <filter-name>LanguageFilter</filter-name>
+        <filter-class>by.bsuir.lab2.controller.filter.LanguageFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>LanguageFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>AccessFilter</filter-name>
+        <filter-class>by.bsuir.lab2.controller.filter.AccessFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>AccessFilter</filter-name>
+        <url-pattern>/admin/*</url-pattern>
+    </filter-mapping>
+
+    <servlet>
+        <servlet-name>Controller</servlet-name>
+        <servlet-class>by.bsuir.lab2.controller.Controller</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>/static/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>Controller</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+    <error-page>
+        <error-code>404</error-code>
+        <location>/WEB-INF/jsp/error404.jsp</location>
+    </error-page>
+
+    <error-page>
+        <error-code>503</error-code>
+        <location>/WEB-INF/jsp/error503.jsp</location>
+    </error-page>
+
+    <session-config>
+        <session-timeout>10</session-timeout>
+    </session-config>
+</web-app>
