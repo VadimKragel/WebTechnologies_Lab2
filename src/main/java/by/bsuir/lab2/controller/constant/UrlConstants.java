@@ -14,11 +14,11 @@ public class UrlConstants {
 
     //ADMIN
 
-    public static final String FORWARD_USERS_EDITOR = "admin/users-editor.jsp";
+    public static final String ADMIN_LIST_USERS_PAGE = "admin/list-users.jsp";
 
-    public static final String FORWARD_EDIT_USER_FORM = "admin/user-edit-form.jsp";
+    public static final String ADMIN_EDIT_FORM_JSP = "admin/user-edit-form.jsp";
 
-    public static final String REDIRECT_503 = "error503.jsp";
+    public static final String ERROR_500_JSP = "error500.jsp";
 
-    public static final String REDIRECT_404 = "error404.jsp";
+    public static final String ERROR_404_JSP = "error404.jsp";
 }

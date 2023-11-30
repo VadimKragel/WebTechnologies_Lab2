@@ -1,10 +1,7 @@
 package by.bsuir.lab2.dao.mysql.impl;
 
-import by.bsuir.lab2.bean.EnumRole;
 import by.bsuir.lab2.bean.Product;
-import by.bsuir.lab2.bean.User;
 import by.bsuir.lab2.dao.ProductDAO;
-import by.bsuir.lab2.dao.connection.ConnectionPool;
 import by.bsuir.lab2.dao.connection.ConnectionPoolException;
 import by.bsuir.lab2.dao.exception.DAOException;
 import by.bsuir.lab2.dao.mysql.AbstractDAO;
@@ -22,6 +19,12 @@ public class MySqlProductDAOImpl extends AbstractDAO implements ProductDAO {
     private static final String GET_ALL_PRODUCTS = "SELECT `id`, `name`, `description`, `price`, `quantity` FROM `product`";
     private static final String ADD_PRODUCT = "INSERT INTO `product` (`name`, `description`, `price`, `quantity`) VALUES (?, ?, ?, ?)";
 
+    public MySqlProductDAOImpl() {
+    }
+
+    public MySqlProductDAOImpl(Connection connection) {
+        super(connection);
+    }
 
     @Override
     public List<Product> getProducts() throws DAOException {

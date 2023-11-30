@@ -18,7 +18,7 @@ public class LogoutCommand implements Command {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         session.removeAttribute(SessionAttribute.USER_DTO);
-        Map<String, String[]> parameters = UrlUtil.getQueryParameters(UrlUtil.getRefererUri(request));
+        Map<String, String[]> parameters = UrlUtil.getQueryParameters(UrlUtil.getRefererUrl(request));
         String appendParameters = "";
         if (parameters != null) {
             String[] langParameterValue = parameters.get("lang");

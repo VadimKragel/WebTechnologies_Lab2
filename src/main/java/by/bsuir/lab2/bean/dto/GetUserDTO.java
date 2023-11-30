@@ -1,20 +1,18 @@
 package by.bsuir.lab2.bean.dto;
 
-import by.bsuir.lab2.bean.EnumRole;
+import by.bsuir.lab2.bean.Role;
 import by.bsuir.lab2.bean.User;
 
-import java.util.Date;
+import java.sql.Date;
 
-public class UserDTO {
+public class GetUserDTO {
     private int id;
 
-    private EnumRole role;
+    private Role role;
 
     private String email;
 
     private String username;
-
-    private String passwordHash;
 
     private String name;
 
@@ -24,13 +22,15 @@ public class UserDTO {
 
     private Date birthDate;
 
-    public static UserDTO mapUser(User user) {
+    public GetUserDTO() {
+    }
 
+    public static GetUserDTO mapUser(User user) {
         if (user == null)
             return null;
-        UserDTO userDTO = new UserDTO();
+        GetUserDTO userDTO = new GetUserDTO();
         userDTO.setId(user.getId());
-        userDTO.setRole(EnumRole.fromId(user.getRoleId()));
+        userDTO.setRole(user.getRole());
         userDTO.setEmail(user.getEmail());
         userDTO.setUsername(user.getUsername());
         userDTO.setName(user.getName());
@@ -40,10 +40,6 @@ public class UserDTO {
         return userDTO;
     }
 
-    public UserDTO() {
-    }
-
-
     public int getId() {
         return id;
     }
@@ -52,11 +48,11 @@ public class UserDTO {
         this.id = id;
     }
 
-    public EnumRole getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(EnumRole role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 
@@ -74,14 +70,6 @@ public class UserDTO {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getPasswordHash() {
-        return passwordHash;
-    }
-
-    public void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash;
     }
 
     public String getName() {

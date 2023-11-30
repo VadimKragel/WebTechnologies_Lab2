@@ -13,19 +13,18 @@ public class CommandName {
     
     public static final String LOGOUT_COMMAND = "/actions/logout";
 
-    public static final String DEFAULT_COMMAND = "/";
+    public static final String EDIT_USER_COMMAND = "/actions/user/edit";
+
+    public static final String GO_TO_DEFAULT_COMMAND = "/";
 
     public static final String GO_TO_HOME_COMMAND = "/";
 
-    public static final String GO_TO_ERROR_503_COMMAND = "/error503";
+    public static final String GO_TO_ERROR_500_COMMAND = "/error500";
 
     public static final String GO_TO_ERROR_404_COMMAND = "/error404";
 
-    public static final String UNKNOWN_COMMAND = "/error404";
-    
     //ADMIN
 
-    public static final String GO_TO_USERS_EDITOR_COMMAND = "/admin/users";
-    
-    public static final String SHOW_USER_COMMAND = "/admin/users/show";
+    public static final String LIST_USERS_COMMAND = "/admin/users";
+    public static final String GO_TO_ADMIN_USER_COMMAND = "/admin/user";
 }

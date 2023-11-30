@@ -29,19 +29,17 @@
     <c:otherwise>
         <jsp:include page="shared/header.jsp"/>
         <form action="<c:url value='/actions/login'/>" method="post">
-            <div class="form-container">
+            <div class="form-container mx-auto">
                 <label for="login">${username}/${email}</label>
                 <input type="text" name="login" id="login" required maxlength="60">
                 <label for="password">${password}</label>
                 <input type="password" name="password" id="password" required minlength="7">
-                <input type="submit" value="${btnLogin}">
+                <input type="submit" class="align-self-start" value="${btnLogin}">
                 <c:if test="${not empty applicationScope.isLoginError}">
-                    <c:choose>
-                        <c:when test="${applicationScope.isLoginError eq true}">
-                            <div id="login-message" class="login-message login-error">${failedLogin}</div>
-                        </c:when>
-                    </c:choose>
-                    <c:remove var="login_message" scope="application"/>
+                        <c:if test="${applicationScope.isLoginError eq true}">
+                            <div id="login-message" class="f-bold error">${failedLogin}</div>
+                        </c:if>
+                    <c:remove var="isLoginError" scope="application"/>
                 </c:if>
             </div>
         </form>

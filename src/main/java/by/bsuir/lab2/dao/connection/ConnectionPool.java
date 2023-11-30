@@ -1,6 +1,8 @@
 package by.bsuir.lab2.dao.connection;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.Properties;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
@@ -54,7 +56,7 @@ public class ConnectionPool {
         return poolSize;
     }
     public Connection getConnection() throws ConnectionPoolException {
-        Connection connection = null;
+        Connection connection;
         try {
             connection = connections.take();
         } catch (InterruptedException e) {
@@ -74,7 +76,7 @@ public class ConnectionPool {
                 if (!connection.getAutoCommit()) {
                     connection.commit();
                 }
-                connection.unwrap(PooledConnection.class).close();
+                connection.unwrap(Connection.class).close();
             } catch (SQLException | InterruptedException e) {
                 throw new ConnectionPoolException("Error during closing of the connection pool.", e);
             }

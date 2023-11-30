@@ -11,14 +11,12 @@ import by.bsuir.lab2.service.exception.ValidationException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
-import java.io.IOException;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.IOException;
 
-import static by.bsuir.lab2.controller.constant.SessionAttribute.IS_REGISTER_ERROR;
+import static by.bsuir.lab2.controller.constant.ApplicationAttribute.IS_REGISTER_ERROR;
 
 public class RegisterCommand implements Command {
     public static final Logger logger = LogManager.getLogger(RegisterCommand.class);
@@ -33,14 +31,14 @@ public class RegisterCommand implements Command {
             UserService userService = ServiceFactory.getInstance().getUserService();
             int userID = userService.register(registerUserDTO);
             request.getServletContext().setAttribute(IS_REGISTER_ERROR, false);
-            response.sendRedirect(UrlUtil.getRefererUri(request));
+            response.sendRedirect(UrlUtil.getRefererUrl(request));
         } catch (ValidationException e) {
             logger.warn("Invalid user data for registration, validation failed!", e);
             request.getServletContext().setAttribute(IS_REGISTER_ERROR, true);
-            response.sendRedirect(UrlUtil.getRefererUri(request));
+            response.sendRedirect(UrlUtil.getRefererUrl(request));
         } catch (ServiceException e) {
             logger.error("Unexpected error happened during registration. Registration is cancelled!", e);
-            response.sendRedirect(request.getContextPath() + CommandName.GO_TO_ERROR_503_COMMAND);
+            response.sendRedirect(request.getContextPath() + CommandName.GO_TO_ERROR_500_COMMAND);
         }
     }
 

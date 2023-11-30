@@ -1,4 +1,4 @@
-package by.bsuir.lab2.bean;
+package by.bsuir.lab2.controller.data;
 
 public enum EnumRole {
     USER(1), ADMIN(2);

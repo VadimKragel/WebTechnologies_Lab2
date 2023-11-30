@@ -50,10 +50,10 @@
         <location>/WEB-INF/jsp/error404.jsp</location>
     </error-page>
 
-    <error-page>
-        <error-code>503</error-code>
-        <location>/WEB-INF/jsp/error503.jsp</location>
-    </error-page>
+<!--    <error-page>-->
+<!--        <error-code>500</error-code>-->
+<!--        <location>/WEB-INF/jsp/error500.jsp</location>-->
+<!--    </error-page>-->
 
     <session-config>
         <session-timeout>10</session-timeout>

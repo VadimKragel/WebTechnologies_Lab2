@@ -3,8 +3,8 @@ package by.bsuir.lab2.dao.connection;
 import java.sql.*;
 import java.util.Map;
 import java.util.Properties;
-import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executor;
+
 
 public class PooledConnection implements Connection {
     private final Connection connection;
@@ -69,12 +69,12 @@ public class PooledConnection implements Connection {
 
     @Override
     public boolean isClosed() throws SQLException {
-        return false;
+        return connection.isClosed();
     }
 
     @Override
     public DatabaseMetaData getMetaData() throws SQLException {
-        return null;
+        return connection.getMetaData();
     }
 
     @Override

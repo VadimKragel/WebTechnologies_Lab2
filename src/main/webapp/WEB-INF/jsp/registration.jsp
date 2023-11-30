@@ -19,7 +19,7 @@
 <html>
 <head>
     <jsp:include page="shared/part-head.jsp"/>
-    <script defer src="${pageContext.request.contextPath}/static/js/validation/registration.js"></script>
+    <script defer src="${pageContext.request.contextPath}/static/js/registration.js"></script>
     <title>${shopName} | ${pageName}</title>
 </head>
 <body>
@@ -32,7 +32,7 @@
     <c:otherwise>
         <jsp:include page="shared/header.jsp"/>
         <form action="<c:url value='/actions/register'/>" method="post" id="register-form">
-            <div class="form-container">
+            <div class="form-container mx-auto">
                 <label for="email">${email}</label>
                 <input type="email" name="email" id="email" required>
                 <label for="username">${username}</label>
@@ -42,18 +42,18 @@
                 <label for="confirmPassword">${confirmPassword}</label>
                 <input type="password" name="confirmPassword" id="confirmPassword" required minlength="7"
                        maxlength="25">
-                <div id="validationMessage" class="register-error" hidden>${passwordMatchError}</div>
-                <input type="submit" id="submit" value="${btnRegister}">
+                <div id="validationMessage" class="error" hidden>${passwordMatchError}</div>
+                <input class="align-self-start" type="submit" id="submit" value="${btnRegister}">
                 <c:if test="${not empty applicationScope.isRegisterError}">
                     <c:choose>
                         <c:when test="${applicationScope.isRegisterError eq false}">
-                            <div id="reg-message" class="register-message register-success">${successfulRegistration}!</div>
+                            <div id="reg-message" class="f-bold success">${successfulRegistration}!</div>
                         </c:when>
                         <c:otherwise>
-                            <div id="reg-message" class="register-message register-error">${failedRegistration}</div>
+                            <div id="reg-message" class="f-bold error">${failedRegistration}</div>
                         </c:otherwise>
                     </c:choose>
-                    <c:remove var="reg_message" scope="application"/>
+                    <c:remove var="isRegisterError" scope="application"/>
                 </c:if>
             </div>
         </form>

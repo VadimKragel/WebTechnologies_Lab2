@@ -1,6 +1,5 @@
 package by.bsuir.lab2.dao;
 
-import by.bsuir.lab2.bean.EnumRole;
 import by.bsuir.lab2.bean.Role;
 import by.bsuir.lab2.dao.exception.DAOException;
 

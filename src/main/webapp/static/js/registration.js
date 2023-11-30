@@ -3,7 +3,8 @@ const passwordField = document.querySelector("#password");
 const confirmPasswordField = document.querySelector("#confirmPassword");
 const messageBlock = document.querySelector("#validationMessage");
 
-registerForm.addEventListener("submit", (e) => confirmPassword(e))
+registerForm.addEventListener("submit", confirmPassword);
+
 function confirmPassword(event) {
     const isEqual = passwordField.value === confirmPasswordField.value;
     messageBlock.hidden = isEqual;
@@ -11,3 +12,4 @@ function confirmPassword(event) {
         event.preventDefault();
     }
 }
+

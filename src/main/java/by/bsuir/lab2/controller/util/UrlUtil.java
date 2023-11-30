@@ -17,19 +17,19 @@ public class UrlUtil {
     private UrlUtil() {
     }
 
-    public static String getRefererUri(HttpServletRequest request) {
+    public static String getRefererUrl(HttpServletRequest request) {
         return request.getHeader(REFERER_HEADER);
     }
 
-    public static Map<String, String[]> getQueryParameters(String uri) {
-        URL url;
+    public static Map<String, String[]> getQueryParameters(String url) {
+        URL objUrl;
         Map<String, List<String>> queryParameters = new HashMap<>();
         try {
-            url = new URL(uri);
-        } catch (MalformedURLException ex) {
+            objUrl = new URL(url);
+        } catch (MalformedURLException e) {
             return null;
         }
-        String queryString = url.getQuery();
+        String queryString = objUrl.getQuery();
         String[] parameters = queryString.split("&");
         for (String parameter : parameters) {
             String[] parameterPair = parameter.split("=");

@@ -1,10 +1,7 @@
 package by.bsuir.lab2.controller.command;
 
-import by.bsuir.lab2.controller.command.impl.GoToCommand;
-import by.bsuir.lab2.controller.command.impl.LoginCommand;
-import by.bsuir.lab2.controller.command.impl.LogoutCommand;
-import by.bsuir.lab2.controller.command.impl.RegisterCommand;
-import by.bsuir.lab2.controller.command.impl.admin.ShowUserCommand;
+import by.bsuir.lab2.controller.command.impl.*;
+import by.bsuir.lab2.controller.command.impl.admin.GetUserCommand;
 import by.bsuir.lab2.controller.command.impl.admin.ListUsersCommand;
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -22,14 +19,15 @@ public class CommandFactory {
     private CommandFactory() {
         commands.put(GO_TO_LOGIN_PAGE_COMMAND, new GoToCommand(LOGIN_JSP));
         commands.put(GO_TO_REGISTRATION_PAGE_COMMAND, new GoToCommand(REGISTRATION_JSP));
-        commands.put(DEFAULT_COMMAND, new GoToCommand(HOME_JSP));
-        commands.put(GO_TO_ERROR_503_COMMAND, new GoToCommand(REDIRECT_503));
-        commands.put(GO_TO_ERROR_404_COMMAND, new GoToCommand(REDIRECT_404));
+        commands.put(GO_TO_DEFAULT_COMMAND, new GoToCommand(HOME_JSP));
+        commands.put(GO_TO_ERROR_500_COMMAND, new GoToCommand(ERROR_500_JSP));
+        commands.put(GO_TO_ERROR_404_COMMAND, new GoToCommand(ERROR_404_JSP));
+        commands.put(GO_TO_ADMIN_USER_COMMAND, new GetUserCommand());
         commands.put(REGISTER_COMMAND, new RegisterCommand());
         commands.put(LOGIN_COMMAND, new LoginCommand());
         commands.put(LOGOUT_COMMAND, new LogoutCommand());
-        commands.put(GO_TO_USERS_EDITOR_COMMAND, new ListUsersCommand());
-        commands.put(SHOW_USER_COMMAND, new ShowUserCommand());
+        commands.put(LIST_USERS_COMMAND, new ListUsersCommand());
+        commands.put(EDIT_USER_COMMAND, new EditUserCommand());
     }
 
     public Command getCommand(HttpServletRequest request) {

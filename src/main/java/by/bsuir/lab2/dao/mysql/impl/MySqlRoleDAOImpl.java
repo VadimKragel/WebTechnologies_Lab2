@@ -1,7 +1,5 @@
 package by.bsuir.lab2.dao.mysql.impl;
 
-import by.bsuir.lab2.bean.EnumRole;
-import by.bsuir.lab2.bean.Product;
 import by.bsuir.lab2.bean.Role;
 import by.bsuir.lab2.dao.RoleDAO;
 import by.bsuir.lab2.dao.connection.ConnectionPoolException;
@@ -22,6 +20,13 @@ public class MySqlRoleDAOImpl extends AbstractDAO implements RoleDAO {
     private static final String GET_ROLE_BY_ID = "SELECT `id`, `name` FROM `role` WHERE `id`=?";
     private static final String GET_ALL_ROLES = "SELECT `id`, `name` FROM `role`";
 
+    public MySqlRoleDAOImpl() {
+    }
+
+    public MySqlRoleDAOImpl(Connection connection) {
+        super(connection);
+    }
+
     @Override
     public List<Role> getRoles() throws DAOException {
         Connection connection = null;
@@ -31,7 +36,6 @@ public class MySqlRoleDAOImpl extends AbstractDAO implements RoleDAO {
             connection = getConnection();
             stmt = connection.prepareStatement(GET_ALL_ROLES);
             rs = stmt.executeQuery();
-            rs.next();
             return mapRoles(rs);
         } catch (SQLException | ConnectionPoolException e) {
             throw new DAOException("Exception during getting all roles.", e);

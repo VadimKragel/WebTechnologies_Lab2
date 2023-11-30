@@ -1,9 +1,9 @@
 package by.bsuir.lab2.controller.filter;
 
-import by.bsuir.lab2.bean.EnumRole;
-import by.bsuir.lab2.bean.dto.UserDTO;
+import by.bsuir.lab2.bean.dto.GetUserDTO;
 import by.bsuir.lab2.controller.constant.CommandName;
 import by.bsuir.lab2.controller.constant.SessionAttribute;
+import by.bsuir.lab2.controller.data.EnumRole;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -20,17 +20,25 @@ public class AccessFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
-        HttpServletResponse httpServletResponse = (HttpServletResponse) response;
+        HttpServletResponse httpResponse = (HttpServletResponse) response;
         HttpSession session = httpRequest.getSession();
-        EnumRole role = ((UserDTO) session.getAttribute(SessionAttribute.USER_DTO)).getRole();
+        EnumRole role = getRoleFromSession(session);
         if (role == null) {
-            httpServletResponse.sendRedirect(httpRequest.getContextPath() + CommandName.GO_TO_HOME_COMMAND);
+            httpResponse.sendRedirect(httpRequest.getContextPath() + CommandName.GO_TO_HOME_COMMAND);
             return;
         }
         switch (role) {
             case ADMIN -> chain.doFilter(request, response);
-            case USER -> httpServletResponse.sendRedirect(httpRequest.getContextPath() + CommandName.GO_TO_HOME_COMMAND);
+            default -> httpResponse.sendRedirect(httpRequest.getContextPath() + CommandName.GO_TO_HOME_COMMAND);
         }
+    }
+
+    private EnumRole getRoleFromSession(HttpSession session) {
+        GetUserDTO sessionUser = (GetUserDTO) session.getAttribute(SessionAttribute.USER_DTO);
+        if (sessionUser != null) {
+            return EnumRole.fromId(sessionUser.getRole().getId());
+        }
+        return null;
     }
 
     @Override

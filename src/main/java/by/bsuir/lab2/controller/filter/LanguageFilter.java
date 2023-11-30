@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 public class LanguageFilter implements Filter {
 
-    private static final List<String> EXCLUDED_PREFIX_PATHS = Arrays.asList("/actions", "/static");
+    private static final List<String> EXCLUDED_PREFIX_PATHS = Arrays.asList("/actions", "/static", "/favicon.ico");
     private static final List<String> SUPPORTED_LANGUAGES = Arrays.stream(Language.values())
             .map(Language::getStringValue)
             .collect(Collectors.toList());
@@ -33,7 +33,14 @@ public class LanguageFilter implements Filter {
             String lang = httpRequest.getParameter("lang");
             if (lang == null || !SUPPORTED_LANGUAGES.contains(lang)) {
                 lang = DEFAULT_LANGUAGE.getStringValue();
-                httpResponse.sendRedirect(httpRequest.getRequestURI() + "?lang=" + lang);
+                String uri = httpRequest.getRequestURI();
+                String queryString = httpRequest.getQueryString();
+                StringBuilder urlBuilder = new StringBuilder(uri + "?");
+                if (queryString != null) {
+                    urlBuilder.append(queryString).append("&");
+                }
+                urlBuilder.append("lang=").append(lang);
+                httpResponse.sendRedirect(urlBuilder.toString());
                 return;
             }
             httpRequest.setAttribute("lang", lang);

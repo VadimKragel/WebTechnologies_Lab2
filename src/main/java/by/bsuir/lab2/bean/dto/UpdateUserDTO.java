@@ -1,23 +1,15 @@
-package by.bsuir.lab2.bean;
+package by.bsuir.lab2.bean.dto;
 
-import java.io.Serial;
-import java.io.Serializable;
 import java.sql.Date;
-import java.util.Objects;
 
-public class User implements Serializable {
-
-    @Serial
-    private static final long serialVersionUID = 2423778934201998111L;
+public class UpdateUserDTO {
     private int id;
 
-    private Role role;
+    private int roleId;
 
     private String email;
 
     private String username;
-
-    private String passwordHash;
 
     private String name;
 
@@ -27,6 +19,20 @@ public class User implements Serializable {
 
     private Date birthDate;
 
+    public UpdateUserDTO() {
+    }
+
+    public UpdateUserDTO(int id, int roleId, String email, String username, String name, String surname, String patronymic, Date birthDate) {
+        this.id = id;
+        this.roleId = roleId;
+        this.email = email;
+        this.username = username;
+        this.name = name;
+        this.surname = surname;
+        this.patronymic = patronymic;
+        this.birthDate = birthDate;
+    }
+
     public int getId() {
         return id;
     }
@@ -35,12 +41,12 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public Role getRole() {
-        return role;
+    public int getRoleId() {
+        return roleId;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
     }
 
     public String getEmail() {
@@ -57,14 +63,6 @@ public class User implements Serializable {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getPasswordHash() {
-        return passwordHash;
-    }
-
-    public void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash;
     }
 
     public String getName() {
@@ -97,18 +95,5 @@ public class User implements Serializable {
 
     public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return id == user.id && role == user.role && email.equals(user.email) && username.equals(user.username) && passwordHash.equals(user.passwordHash) && name.equals(user.name) && surname.equals(user.surname) && Objects.equals(patronymic, user.patronymic) && birthDate.equals(user.birthDate);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, role, email, username, passwordHash, name, surname, patronymic, birthDate);
     }
 }

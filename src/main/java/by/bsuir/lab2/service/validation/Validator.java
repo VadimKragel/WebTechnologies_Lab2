@@ -1,8 +1,8 @@
 package by.bsuir.lab2.service.validation;
 
-import by.bsuir.lab2.bean.User;
 import by.bsuir.lab2.bean.dto.LoginUserDTO;
 import by.bsuir.lab2.bean.dto.RegisterUserDTO;
+import by.bsuir.lab2.bean.dto.UpdateUserDTO;
 
 import java.util.regex.Pattern;
 
@@ -18,8 +18,8 @@ public class Validator {
         return value.length() >= min;
     }
 
-    public static boolean isNullOrWhiteSpace(String value) {
-        return value == null || value.trim().isEmpty();
+    public static boolean isNullOrBlank(String value) {
+        return value == null || value.isBlank();
     }
 
     public static boolean isRegistrationDataValid(RegisterUserDTO registerUserDTO) {
@@ -30,10 +30,10 @@ public class Validator {
         if (isEmail(email)) {
             return false;
         }
-        if (isNullOrWhiteSpace(username)) {
+        if (isNullOrBlank(username)) {
             return false;
         }
-        if (isNullOrWhiteSpace(password) || !minLength(password, 7)) {
+        if (isNullOrBlank(password) || !minLength(password, 7)) {
             return false;
         }
         return true;
@@ -43,10 +43,22 @@ public class Validator {
         String login = loginUserDTO.getLogin();
         String password = loginUserDTO.getPassword();
 
-        if (isNullOrWhiteSpace(login)) {
+        if (isNullOrBlank(login)) {
             return false;
         }
-        if (isNullOrWhiteSpace(password)) {
+        if (isNullOrBlank(password)) {
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean isUpdateDataValid(UpdateUserDTO updateUserDTO){
+        String email = updateUserDTO.getEmail();
+        String username = updateUserDTO.getUsername();
+        if (isEmail(email)) {
+            return false;
+        }
+        if (isNullOrBlank(username)) {
             return false;
         }
         return true;

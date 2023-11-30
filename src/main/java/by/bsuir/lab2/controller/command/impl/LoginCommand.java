@@ -1,9 +1,8 @@
 package by.bsuir.lab2.controller.command.impl;
 
-import by.bsuir.lab2.bean.EnumRole;
 import by.bsuir.lab2.bean.User;
+import by.bsuir.lab2.bean.dto.GetUserDTO;
 import by.bsuir.lab2.bean.dto.LoginUserDTO;
-import by.bsuir.lab2.bean.dto.UserDTO;
 import by.bsuir.lab2.controller.command.Command;
 import by.bsuir.lab2.controller.constant.CommandName;
 import by.bsuir.lab2.controller.constant.SessionAttribute;
@@ -21,7 +20,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
-import static by.bsuir.lab2.controller.constant.SessionAttribute.IS_LOGIN_ERROR;
+import static by.bsuir.lab2.controller.constant.ApplicationAttribute.IS_LOGIN_ERROR;
 
 public class LoginCommand implements Command {
     private static final Logger logger = LogManager.getLogger(LoginCommand.class);
@@ -36,22 +35,21 @@ public class LoginCommand implements Command {
             User user = userService.login(loginUserDTO);
             if (user != null) {
                 HttpSession session = request.getSession();
-                session.setAttribute(SessionAttribute.USER_DTO, UserDTO.mapUser(user));
+                session.setAttribute(SessionAttribute.USER_DTO, GetUserDTO.mapUser(user));
                 request.getServletContext().setAttribute(IS_LOGIN_ERROR, false);
-                response.sendRedirect(UrlUtil.getRefererUri(request));
+                response.sendRedirect(UrlUtil.getRefererUrl(request));
             } else {
                 request.getServletContext().setAttribute(IS_LOGIN_ERROR, true);
-                response.sendRedirect(UrlUtil.getRefererUri(request));
+                response.sendRedirect(UrlUtil.getRefererUrl(request));
             }
         } catch (ValidationException e) {
             logger.warn("Invalid user credentials for login.", e);
             request.getServletContext().setAttribute(IS_LOGIN_ERROR, true);
-            response.sendRedirect(UrlUtil.getRefererUri(request));
+            response.sendRedirect(UrlUtil.getRefererUrl(request));
         } catch (ServiceException e) {
             logger.error("Unexpected error happened during login. Login is cancelled!", e);
-            response.sendRedirect(request.getContextPath() + CommandName.GO_TO_ERROR_503_COMMAND);
+            response.sendRedirect(request.getContextPath() + CommandName.GO_TO_ERROR_500_COMMAND);
         }
-
     }
 
     private LoginUserDTO getLoginUserDTO(HttpServletRequest request) {
